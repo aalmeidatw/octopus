@@ -19,11 +19,15 @@
                 </h1>
             </div>
         </div>
+        <hr class="no-margin"/>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div id="chart"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 more-margin">
+                <button id="loadButton"class="btn btn-primary">Load Capability Map</button>
+                <input type="file" id="files" name="files[]" class="hide"/>
+
                 <h3>Project Description</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
                 <h3>Project Details</h3>
@@ -35,10 +39,11 @@
                 </ul>
             </div>
         </div>
-        <hr>
     </div>
     <script src="js/lib/jquery.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/d3.v3.min.js"></script>
+    <script src="js/octopus-chart.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

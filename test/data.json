@@ -1,0 +1,42 @@
+[
+    [
+        { "capability": "Java", "value": 0.80 },
+        { "capability": "C#", "value": 0.60 },
+        { "capability": "Microservices", "value": 0.40 },
+        { "capability": "Delphi", "value": 0.20 },
+        { "capability": "Communication", "value": 0 },
+        { "capability": "Negotiation", "value": 1 },
+        { "capability": "Leadership", "value": 0.11 },
+        { "capability": "React", "value": 0.05 },
+        { "capability": "D3", "value": 0.07 },
+        { "capability": "Angular", "value": 0.12 },
+        { "capability": "MongoDB", "value": 0.27 },
+        { "capability": "Hadoop", "value": 0.03 },
+        { "capability": "Hive", "value": 0.12 },
+        { "capability": "Hystrix", "value": 0.4 },
+        { "capability": "Planning", "value": 0.4 },
+        { "capability": "Team Building", "value": 0.4 },
+        { "capability": "Estimation", "value": 0.4 },
+        { "capability": "God", "value": 0.4 }
+    ],
+    [
+        { "capability": "Java", "value": 0.20 },
+        { "capability": "C#", "value": 0.60 },
+        { "capability": "Microservices", "value": 0.40 },
+        { "capability": "Delphi", "value": 0.20 },
+        { "capability": "Communication", "value": 0 },
+        { "capability": "Negotiation", "value": 1 },
+        { "capability": "Leadership", "value": 0.11 },
+        { "capability": "React", "value": 0.05 },
+        { "capability": "D3", "value": 0.07 },
+        { "capability": "Angular", "value": 0.12 },
+        { "capability": "MongoDB", "value": 0.27 },
+        { "capability": "Hadoop", "value": 0.03 },
+        { "capability": "Hive", "value": 0.12 },
+        { "capability": "Hystrix", "value": 0.4 },
+        { "capability": "Planning", "value": 0.4 },
+        { "capability": "Team Building", "value": 0.4 },
+        { "capability": "Estimation", "value": 0.4 },
+        { "capability": "God", "value": 0.4 }
+    ]
+]
