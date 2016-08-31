@@ -1,9 +1,9 @@
 body {
-    padding-top: -10px; 
+    padding-top: -10px;
 }
 
 hr {
-	margin-top: 0 !important;
+    margin-top: 0 !important;
 }
 
 footer {
@@ -11,28 +11,34 @@ footer {
 }
 
 div.more-margin {
-	margin-left: 20px;
-	margin-right: -20px;
-	border-left: 1px solid #eee;
+    margin-left: 20px;
+    margin-right: -20px;
+    border-left: 1px solid #eee;
 }
 
 .level {
-	stroke: gray;
+    stroke: gray;
     stroke-opacity: 0.75;
     stroke-width: 0.3px;
 }
 
 .line {
-	stroke: gray;
+    stroke: gray;
     stroke-width: 1px;
 }
 
 .legend {
-	font-family: sans-serif;
+    font-family: sans-serif;
     font-size: 11px;
 }
 
 .serie {
-	stroke-width: 2px;
-	fill-opacity: 0.25;
+    stroke-width: 2px;
+    fill-opacity: 0.25;
+}
+
+.tooltip {
+    opacity: 0;
+    font-family: sans-serif;
+    font-size: 13px
 }

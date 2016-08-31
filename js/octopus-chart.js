@@ -45,9 +45,7 @@ OctopusChart.prototype.drawLevels = function(canvas) {
         };
 
         canvas.selectAll("levels")
-            .data(this.capabilities)
-            .enter()
-            .append("svg:line")
+            .data(this.capabilities).enter().append("svg:line")
             .attr({
                 class: "level",
                 x1: (d, i) => thiz.mapX(i, scale, 0, 1),
@@ -73,8 +71,7 @@ OctopusChart.prototype.drawLines = function(canvas) {
 
 OctopusChart.prototype.drawLabels = function(canvas) {
     var thiz = this;
-    canvas.append("text")
-        .text(d => d)
+    canvas.append("text").text(d => d)
         .attr({
             class: "legend",
             "text-anchor": "middle",
@@ -99,10 +96,7 @@ OctopusChart.prototype.fadeTransition = function(canvas, polygon, opacity) {
 
 OctopusChart.prototype.drawArea = function(canvas, dataValues, color) {
     var thiz = this;
-    canvas.selectAll("area")
-        .data(dataValues)
-        .enter()
-        .append("polygon")
+    canvas.selectAll("area").data(dataValues).enter().append("polygon")
         .style({
             stroke: color,
             fill: color
@@ -111,10 +105,51 @@ OctopusChart.prototype.drawArea = function(canvas, dataValues, color) {
             class: "serie",
             points: d => d.map(p => [p[0], p[1]])
         })
-        .on('mouseover',function(d) {
+        .on('mouseover', function(d) {
             thiz.fadeTransition(canvas, "polygon." + d3.select(this).attr("class"), 0.1);
         })
         .on('mouseout', m => thiz.fadeTransition(canvas, null, 0.25));
+}
+
+
+OctopusChart.prototype.showTooltip = function(d, tooltip, thiz) {
+    tooltip
+        .attr('x', parseFloat(d3.select(thiz).attr('cx')) - 10)
+        .attr('y', parseFloat(d3.select(thiz).attr('cy')) - 5)
+        .text(d3.format('')(d.value))
+        .transition(100)
+        .style('opacity', 1);
+};
+
+OctopusChart.prototype.hideTooltip = function(tooltip) {
+    tooltip
+        .transition(100)
+        .style('opacity', 0);
+};
+
+
+OctopusChart.prototype.drawNodes = function(canvas, maxValue, y, color) {
+    var thiz = this;
+    var total = this.capabilities.length;
+
+    var tooltip = canvas.append('text').attr("class", tooltip);
+
+    canvas.selectAll("nodes").data(y).enter().append("svg:circle")
+        .attr({
+            class: "radar-chart-serie-node",
+            r: 5,
+            cx: (j, i) => thiz.center.x * (1 - (Math.max(j.value, 0) / maxValue) * Math.sin(i * thiz.TURN / total)),
+            cy: (j, i) => thiz.center.y * (1 - (Math.max(j.value, 0) / maxValue) * Math.cos(i * thiz.TURN / total)),
+            "data-id": j => j.axis
+        })
+        .style({
+            fill: color,
+            "fill-opacity": .8
+        })
+        .on('mouseover', function(d) {
+            thiz.showTooltip(d, tooltip, this);
+        })
+        .on('mouseout', () => thiz.hideTooltip(tooltip));
 }
 
 
@@ -143,13 +178,11 @@ var OctopusChart2 = {
                 return o.value;
             }))
         }));
+
         var allAxis = (data[0].map(function(i, j) {
             return i.capability
         }));
         var total = allAxis.length;
-        var radius = cfg.factor * Math.min(cfg.w / 2, cfg.h / 2);
-        var Format = d3.format('');
-        d3.select(id).select("svg").remove();
 
         var g = d3.select(id)
             .append("svg")
@@ -158,11 +191,7 @@ var OctopusChart2 = {
             .append("g")
             .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");;
 
-        var tooltip;
-
         octo.drawLevels(g);
-
-        series = 0;
 
         var axis = g.selectAll(".axis")
             .data(allAxis)
@@ -173,10 +202,10 @@ var OctopusChart2 = {
         octo.drawLines(axis);
         octo.drawLabels(axis);
 
-
+        series = 0;
         data.forEach(function(y, x) {
             dataValues = [];
-            g.selectAll(".nodes")
+            g.selectAll("nodes")
                 .data(y, function(j, i) {
                     dataValues.push([
                         cfg.w / 2 * (1 - (parseFloat(Math.max(j.value, 0)) / cfg.maxValue) * cfg.factor * Math.sin(i * cfg.radians / total)),
@@ -186,73 +215,8 @@ var OctopusChart2 = {
             dataValues.push(dataValues[0]);
 
             octo.drawArea(g, [dataValues], cfg.color(series));
+            octo.drawNodes(g, cfg.maxValue, y, cfg.color(series));
             series++;
         });
-
-        series = 0;
-
-        data.forEach(function(y, x) {
-            g.selectAll(".nodes")
-                .data(y)
-                .enter()
-                .append("svg:circle")
-                .attr("class", "radar-chart-serie" + series)
-                .attr('r', cfg.radius)
-                .attr("alt", function(j) {
-                    return Math.max(j.value, 0)
-                })
-                .attr("cx", function(j, i) {
-                    dataValues.push([
-                        cfg.w / 2 * (1 - (parseFloat(Math.max(j.value, 0)) / cfg.maxValue) * cfg.factor * Math.sin(i * cfg.radians / total)),
-                        cfg.h / 2 * (1 - (parseFloat(Math.max(j.value, 0)) / cfg.maxValue) * cfg.factor * Math.cos(i * cfg.radians / total))
-                    ]);
-                    return cfg.w / 2 * (1 - (Math.max(j.value, 0) / cfg.maxValue) * cfg.factor * Math.sin(i * cfg.radians / total));
-                })
-                .attr("cy", function(j, i) {
-                    return cfg.h / 2 * (1 - (Math.max(j.value, 0) / cfg.maxValue) * cfg.factor * Math.cos(i * cfg.radians / total));
-                })
-                .attr("data-id", function(j) {
-                    return j.axis
-                })
-                .style("fill", cfg.color(series)).style("fill-opacity", .9)
-                .on('mouseover', function(d) {
-                    newX = parseFloat(d3.select(this).attr('cx')) - 10;
-                    newY = parseFloat(d3.select(this).attr('cy')) - 5;
-
-                    tooltip
-                        .attr('x', newX)
-                        .attr('y', newY)
-                        .text(Format(d.value))
-                        .transition(200)
-                        .style('opacity', 1);
-
-                    z = "polygon." + d3.select(this).attr("class");
-                    g.selectAll("polygon")
-                        .transition(200)
-                        .style("fill-opacity", 0.1);
-                    g.selectAll(z)
-                        .transition(200)
-                        .style("fill-opacity", .7);
-                })
-                .on('mouseout', function() {
-                    tooltip
-                        .transition(200)
-                        .style('opacity', 0);
-                    g.selectAll("polygon")
-                        .transition(200)
-                        .style("fill-opacity", cfg.opacityArea);
-                })
-                .append("svg:title")
-                .text(function(j) {
-                    return Math.max(j.value, 0)
-                });
-
-            series++;
-        });
-        //Tooltip
-        tooltip = g.append('text')
-            .style('opacity', 0)
-            .style('font-family', 'sans-serif')
-            .style('font-size', '13px');
     }
 };
