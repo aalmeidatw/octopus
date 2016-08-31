@@ -4,7 +4,7 @@ var d= []
 
 $.getJSON("test/data.json", function(json) {
 	d = json;
-	 OctopusChar.draw("#chart", d);
+	 OctopusChart2.draw("#chart", d);
 }).error(function(jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
     console.log(textStatus);
@@ -24,7 +24,7 @@ function handleFileSelect(evt) {
         return function(e) {
             // Render thumbnail.
             json = JSON.parse(e.target.result);
-            OctopusChar.draw("#chart", json);
+            OctopusChart2.draw("#chart", json);
         };
     })(f);
 
