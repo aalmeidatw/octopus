@@ -90,7 +90,7 @@
         if (polygon) {
             this.canvas.selectAll(polygon)
                 .transition(200)
-                .style("fill-opacity", .7);
+                .style("fill-opacity", .3);
         }
     }
 
@@ -113,7 +113,7 @@
                 fill: color
             })
             .attr({
-                class: "serie",
+                class: "area",
                 points: d => d.map(p => [p[0], p[1]])
             })
             .on('mouseover', function(d) {
@@ -184,10 +184,12 @@
         this.drawAxes()
 
         var thiz = this;
-        this.data.forEach(function(map, index) {
-            thiz.drawArea(map.content, thiz.color(index));
-            thiz.drawNodes(map.content, thiz.color(index));
-        });
+        this.data
+            .filter(d => d.show)
+            .forEach(function(map, index) {
+                thiz.drawArea(map.content, thiz.color(index));
+                thiz.drawNodes(map.content, thiz.color(index));
+            });
     }
     window.OctopusChart = OctopusChart;
 })();
