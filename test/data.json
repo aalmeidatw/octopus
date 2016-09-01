@@ -1,5 +1,6 @@
-[
-    [
+[{
+    "name": "Gustavo 2016",
+    "content": [
         { "capability": "Gerenciamento de Programas", "value": "2" },
         { "capability": "Arquitetura", "value": "2" },
         { "capability": "Codar", "value": "3" },
@@ -17,4 +18,24 @@
         { "capability": "Planejamento", "value": "2" },
         { "capability": "Liderança", "value": "3" }
     ]
-]
+}, {
+    "name": "Gustavo 2017",
+    "content": [
+        { "capability": "Gerenciamento de Programas", "value": "3" },
+        { "capability": "Arquitetura", "value": "5" },
+        { "capability": "Codar", "value": "5" },
+        { "capability": "Design de Software", "value": "4" },
+        { "capability": "Entrega Contínua", "value": "6" },
+        { "capability": "Infraestrutura", "value": "3" },
+        { "capability": "Manutenção de Legado", "value": "8" },
+        { "capability": "Automação de Testes", "value": "5" },
+        { "capability": "Representar a TW", "value": "6" },
+        { "capability": "Organização de Eventos", "value": "4" },
+        { "capability": "Feedback", "value": "6" },
+        { "capability": "Ensino", "value": "4" },
+        { "capability": "Gerência na Complexidade", "value": "4" },
+        { "capability": "Coaching", "value": "3" },
+        { "capability": "Planejamento", "value": "3" },
+        { "capability": "Liderança", "value": "4" }
+    ]
+}]

@@ -13,7 +13,7 @@
         this.color = d3.scale.category10();
 
         this.radius = Math.min(this.center.x, this.center.y);
-        this.capabilities = data[0].map(function(i) {
+        this.capabilities = data[0].content.map(function(i) {
             return i.capability;
         });
 
@@ -185,8 +185,8 @@
 
         var thiz = this;
         this.data.forEach(function(map, index) {
-            thiz.drawArea(map, thiz.color(index));
-            thiz.drawNodes(map, thiz.color(index));
+            thiz.drawArea(map.content, thiz.color(index));
+            thiz.drawNodes(map.content, thiz.color(index));
         });
     }
     window.OctopusChart = OctopusChart;
