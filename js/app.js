@@ -1,10 +1,11 @@
 var colorscale = d3.scale.category10();
 
-var d= []
+var d = []
 
 $.getJSON("test/data.json", function(json) {
-	d = json;
-	 OctopusChart2.draw("#chart", d);
+    d = json;
+    var octo = new OctopusChart("#chart", d, 450, 450);
+    octo.draw();
 }).error(function(jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
     console.log(textStatus);
